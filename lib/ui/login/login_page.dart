@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:products_test_flutter/ui/product/product_screen.dart';
+import 'package:products_test_flutter/utils/snackbar.dart';
 
 import '../../constants.dart';
 
@@ -12,6 +14,19 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    void _auth() {
+      final email = emailController.text;
+      final password = passwordController.text;
+      if (email == 'fflabel@ff.f' && password == 'fflabel') {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const ProductPage()));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(snackBarMessage);
+      }
+    }
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -31,6 +46,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             TextField(
               decoration: emailFieldDecoration,
+              controller: emailController,
             ),
             const SizedBox(
               height: 20,
@@ -44,6 +60,8 @@ class _LoginPageState extends State<LoginPage> {
             ),
             TextField(
               decoration: passwordFieldDecoration,
+              controller: passwordController,
+              obscureText: true,
             ),
             const SizedBox(
               height: 170,
@@ -52,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
               height: 60,
               width: 350,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: _auth,
                 child: const Text('Sign In'),
               ),
             )
